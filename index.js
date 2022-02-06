@@ -12,7 +12,9 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 const server = http.createServer(app)
 
-const io = new Server(server)
+const io = new Server(server,{cors:{
+    origin:'*'
+}})
 
 const corsPolicy={
     //Headers:'Access-Control-Allow-Headers: X-Requested-With, privatekey',
