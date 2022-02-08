@@ -1,6 +1,11 @@
 let users = []
 
 const addUser = ({ id, name, room }) => {
+
+    if(!name || !room){
+        return {error:'do not contained name or room!'}
+    }
+
     name = name.trim().toLowerCase();
     room = room.trim().toLowerCase();
 
