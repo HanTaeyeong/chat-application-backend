@@ -1,6 +1,6 @@
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users.js')
 
-const onConnection = (socket) => {
+const onConnection = (socket, io) => {
 
     console.log('a user connected')
 

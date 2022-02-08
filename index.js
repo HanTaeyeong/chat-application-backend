@@ -29,7 +29,7 @@ const corsPolicy = {
 app.use(cors())
 app.use(router);
 
-io.on('connection', (socket) => onConnection(socket))
+io.on('connection', (socket, io) => onConnection(socket, io))
 
 server.listen(PORT, () => console.log(`server started on ${PORT}`));
 
