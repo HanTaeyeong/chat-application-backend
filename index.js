@@ -50,11 +50,16 @@ io.on('connection', (socket) => {
 
     socket.on('sendMessage', (message) => {
         const user = getUser(socket.id)
+        if(!user) return;
+
         io.to(user.room).emit('meessage', { user: user.name, text: message })
     })
 
     socket.on('disconnect', () => {
         const user = getUser(socket.id)
+
+        if(!user) return;
+
         io.to(user.room).emit('message', { user: 'admin', text: `${user.name} has left.` })
         io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
         removeUser(socket.id)
