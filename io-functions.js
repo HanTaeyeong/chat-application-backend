@@ -1,4 +1,7 @@
+const { addUser, removeUser, getUser, getUsersInRoom } = require('./users.js')
+
 const onConnection = (socket) => {
+
     console.log('a user connected')
 
     socket.on('join', ({ name, room }) => {
@@ -23,12 +26,8 @@ const onConnection = (socket) => {
     socket.on('disconnect', () => {
         io.to(user.room).emit('message', { user: 'admin', text: `${user.name} has left.` })
         io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
-
+        removeUser(socket.id)
     })
-}
-
-const onJoin=()=>{
-    
 }
 
 

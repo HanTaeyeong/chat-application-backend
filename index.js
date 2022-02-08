@@ -7,7 +7,6 @@ const { Server } = require('socket.io')
 
 const cors = require('cors')
 
-const { addUser, removeUser, getUser, getUsersInRoom } = require('./users.js')
 const { onConnection } = require('./io-functions')
 
 const PORT = process.env.PORT || 5000;

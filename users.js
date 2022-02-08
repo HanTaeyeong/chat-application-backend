@@ -14,16 +14,16 @@ const addUser = ({ id, name, room }) => {
     return { user }
 }
 
-const removeUser=(id)=>{
-    return users=users.filter(user=>user.id !== id)
+const removeUser = (id) => {
+    return users = users.filter(user => user.id !== id)
 }
 
-const getUser=(id)=>users.find((user)=>user.id===id)
+const getUser = (id) => users.find((user) => user.id === id)
 
-const getUsersInRoom=(room)=>users.filter((user)=>user.room===room)
+const getUsersInRoom = (room) => users.filter((user) => user.room === room)
 
 
-module.exports ={addUser,removeUser,getUser, getUsersInRoom}
+module.exports = { addUser, removeUser, getUser, getUsersInRoom }
 
 
 
