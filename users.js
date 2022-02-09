@@ -1,32 +1,44 @@
-let users = []
+
+// new Date().toISOString() '2022-02-08T13:20:06.212Z'
+let users = new Map();
 
 const addUser = ({ id, name, room }) => {
+    
+    if (!room) { return { error: 'Room name is required!' } }
+    if (!name) { return { error: 'User name is required!' } }
 
-    if(!name || !room){
-        return {error:'do not contained name or room!'}
-    }
+    name = name.trim();
+    room = room.trim();
 
-    name = name.trim().toLowerCase();
-    room = room.trim().toLowerCase();
+    if (!room) { return { error: 'Room name is required!' } }
+    if (!name) { return { error: 'User name is required!' } }
 
-    const existingUser = users.find((user) => user.room === room && user.name === name);
+    const user = { room, name, id }
+    users[id] = user
+    console.log(user)
 
-    if (existingUser) {
-        return { error: 'Username already exists!' }
-    }
-    const user = { id, name, room }
-    users.push(user)
-    return { user }
+    return { user };
 }
 
 const removeUser = (id) => {
-    return users = users.filter(user => user.id !== id)
+    users.delete(id)
 }
 
-const getUser = (id) => users.find((user) => user.id === id)
+const getUser = (id) => users[id]
 
-const getUsersInRoom = (room) => users.filter((user) => user.room === room)
+const getUsersInRoom = (room) => {
+    const res = []
 
+    for (const id in users) {
+        const user = users[id]
+
+        if (user.room === room) {
+            res.push(user)
+        }
+    }
+
+    return res;
+}
 
 module.exports = { addUser, removeUser, getUser, getUsersInRoom }
 
