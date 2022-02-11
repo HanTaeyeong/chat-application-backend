@@ -1,46 +1,55 @@
 
 // new Date().toISOString() '2022-02-08T13:20:06.212Z'
-let users = new Map();
 
-const addUser = ({ id, name, room }) => {
-    
-    if (!room) { return { error: 'Room name is required!' } }
-    if (!name) { return { error: 'User name is required!' } }
+const UsersSingleton = () => {
 
-    name = name.trim();
-    room = room.trim();
+    let users = new Map();
 
-    if (!room) { return { error: 'Room name is required!' } }
-    if (!name) { return { error: 'User name is required!' } }
+    const addUser = ({ id, name, room }) => {
 
-    const user = { room, name, id }
-    users[id] = user
-    console.log(user)
+        if (getUser(id)) { return { error: 'user ID already exists! (retry please)' } }
 
-    return { user };
-}
+        if (!room) { return { error: 'Room name is required!' } }
+        if (!name) { return { error: 'User name is required!' } }
 
-const removeUser = (id) => {
-    users.delete(id)
-}
+        name = name.trim();
+        room = room.trim();
 
-const getUser = (id) => users[id]
+        if (!room) { return { error: 'Room name is required!' } }
+        if (!name) { return { error: 'User name is required!' } }
 
-const getUsersInRoom = (room) => {
-    const res = []
+        const user = { room, name, id }
+        users[id] = user
 
-    for (const id in users) {
-        const user = users[id]
-
-        if (user.room === room) {
-            res.push(user)
-        }
+        return { user };
     }
 
-    return res;
+    const removeUser = (id) => {
+        users[id]=undefined
+    }
+
+    const getUser = (id) => users[id]
+
+    const getUsersInRoom = (room) => {
+        const res = []
+
+        for (const id in users) {
+
+            const user = users[id]
+
+            if (user.room === room) {
+                res.push(user)
+            }
+        }
+
+        return res;
+    }
+    return { addUser, removeUser, getUser, getUsersInRoom }
 }
 
-module.exports = { addUser, removeUser, getUser, getUsersInRoom }
+const singletonInstance = UsersSingleton()
+
+module.exports = { ...singletonInstance, UsersSingleton }
 
 
 
