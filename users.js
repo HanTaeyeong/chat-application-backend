@@ -19,29 +19,24 @@ const UsersSingleton = () => {
         if (!name) { return { error: 'User name is required!' } }
 
         const user = { room, name, id }
-        users[id] = user
+
+        users.set(id, user)
 
         return { user };
     }
 
-    const removeUser = (id) => {
-        users[id]=undefined
-    }
+    const removeUser = (id) => users.delete(id)
 
-    const getUser = (id) => users[id]
+    const getUser = (id) => users.get(id)
 
     const getUsersInRoom = (room) => {
         const res = []
 
-        for (const id in users) {
-
-            const user = users[id]
-
+        for (const [id, user] of users.entries()) {
             if (user.room === room) {
                 res.push(user)
             }
         }
-
         return res;
     }
     return { addUser, removeUser, getUser, getUsersInRoom }
