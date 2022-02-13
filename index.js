@@ -18,13 +18,13 @@ const server = http.createServer(app)
 
 const io = new Server(server, {
     cors: {
-        origin: '*'
+        origin: ['http://localhost:3000']
     }
 })
 
 const corsPolicy = {
     //Headers:'Access-Control-Allow-Headers: X-Requested-With, privatekey',
-    origin: '*',
+    origin: 'http://localhost:3000',
     credentials: true
 }
 
