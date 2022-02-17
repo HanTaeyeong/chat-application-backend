@@ -11,20 +11,20 @@ const cors = require('cors')
 
 const { onConnection } = require('./io-functions')
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
 
 const app = express();
 const server = http.createServer(app)
 
 const io = new Server(server, {
     cors: {
-        origin: ['http://localhost:3000']
+        origin: ['*']
     }
 })
 
 const corsPolicy = {
     //Headers:'Access-Control-Allow-Headers: X-Requested-With, privatekey',
-    origin: 'http://localhost:3000',
+    origin: '*',
     credentials: true
 }
 
